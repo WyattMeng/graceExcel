@@ -12,6 +12,7 @@ import xlsxwriter
 from xlutils.copy import copy
 import os
 from formatString_M import formatString
+from formatString_M import datetime_toString
 from getCYPY import getCY
 import datetime
 
@@ -19,7 +20,7 @@ import datetime
 path_src = 'C:\Users\maddox.meng\Desktop\E10000.xlsx'
 path_dest= 'C:\Users\maddox.meng\Desktop\GET.xlsx'
 
-df = pd.read_excel(path_src, 'E10000',header=None)
+df = pd.read_excel(path_src, 'E10000', header=None)
 
 
 key = u'3.应收利息'
@@ -35,8 +36,8 @@ for item in df.iloc[:,0]:
 x_diff = 0
 for item in df.iloc[x_min+1:,0]:
     if item is not np.nan and item[0].isdigit() is True:
-        print item
-        print x_diff
+        #print item
+        #print x_diff
         break
     x_diff+=1
 
@@ -46,7 +47,17 @@ x_max = x_min + x_diff
 
 df_area = df[x_min:x_max]
 #print df_area
-for item in df_area[:,0]:
-    if item is not np.nan:
-        print item    
+names = []
+for x in range(x_min+1,x_max):
+    if df.iloc[x,0] is not np.nan:
+        print x,df.iloc[x,0]
+        names.append((df.iloc[x,0],x))
+
+dates=[]
+for x in range(x_min,x_max):
+    for y in range(0,df.shape[1]):
+        if isinstance(df.iloc[x,y],datetime.datetime) is True:
+            print y,df.iloc[x,y]
+            date = datetime_toString(df.iloc[x,y])
+            dates.append((date,y))
     
