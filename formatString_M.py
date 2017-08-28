@@ -9,4 +9,7 @@ def formatString(foo):
     return "".join(foo.split())    
     #return foo.strip().replace(' ','')
 
+def datetime_toString(dt):
+    return dt.strftime("%Y年%m月%d日")    
+
 #print formatString(' a a ')
